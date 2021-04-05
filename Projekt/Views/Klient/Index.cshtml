@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Klienci</h2>
+
+<br />
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Imię</th>
+        <th>Nazwisko</th>
+        <th>Telefon</th>
+        <th>Email</th>
+        <th>Ulica</th>
+        <th>Numer</th>
+        <th>Miasto</th>
+        <th>Kod</th>
+        <th></th>
+    </tr>
+    @for (int i = 0; i < Model.Rows.Count; i++)
+    {
+        <tr>
+            <td>@Model.Rows[i][0]</td>
+            <td>@Model.Rows[i][1]</td>
+            <td>@Model.Rows[i][2]</td>
+            <td>@Model.Rows[i][3]</td>
+            <td>@Model.Rows[i][4]</td>
+            <td>@Model.Rows[i][5]</td>
+            <td>@Model.Rows[i][6]</td>
+            <td>@Model.Rows[i][7]</td>
+            <td>
+                @*<a href="@Url.Action("Details", "Pracownik", new { @id=Model.Rows[i][8] })">Opinie</a> /*@
+                <a href="@Url.Action("Edit", "Klient", new { @id=Model.Rows[i][8] })">Edycja</a> / 
+                <a href="@Url.Action("Delete", "Klient", new { @id=Model.Rows[i][8] })">Usuń</a>
+            </td>
+        </tr>
+    }
+</table>
+
+@*nazwa, nazwa kontrolera*@
+<a href="@Url.Action("Create", "Klient")">Dodaj klienta</a>
