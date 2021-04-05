@@ -1,0 +1,25 @@
+﻿@model System.Data.DataTable
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Opinie pracownika</h2>
+<br />
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Klient</th>
+        <th>Pracownik</th>
+        <th>Opis</th>
+    </tr>
+    @for (int i = 0; i < Model.Rows.Count; i++)
+    {
+        <tr>
+            <td>@Model.Rows[i][0]</td>
+            <td>@Model.Rows[i][1]</td>
+            <td>@Model.Rows[i][2]</td>
+        </tr>
+    }
+</table>
+
+

@@ -129,6 +129,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PracownikController.cs" />
     <Compile Include="Controllers\SamochodController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -136,6 +137,7 @@
     <Compile Include="Models\KONTO.cs">
       <DependentUpon>Uzytkownicy.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PracownikModel.cs" />
     <Compile Include="Models\SamochodModel.cs" />
     <Compile Include="Models\Uzytkownicy.Context.cs">
       <AutoGen>True</AutoGen>
@@ -210,8 +212,12 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Samochod\Index.cshtml" />
-    <Content Include="Views\Samochod\Create.cshtml" />
     <Content Include="Views\Samochod\Edit.cshtml" />
+    <Content Include="Views\Pracownik\Index.cshtml" />
+    <Content Include="Views\Pracownik\Details.cshtml" />
+    <Content Include="Views\Samochod\Create.cshtml" />
+    <Content Include="Views\Pracownik\Create.cshtml" />
+    <Content Include="Views\Pracownik\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
