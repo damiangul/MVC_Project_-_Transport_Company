@@ -132,10 +132,12 @@
     <Compile Include="Controllers\KlientController.cs" />
     <Compile Include="Controllers\PracownikController.cs" />
     <Compile Include="Controllers\SamochodController.cs" />
+    <Compile Include="Controllers\ZlecenieAdminController.cs" />
     <Compile Include="Controllers\ZlecenieController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DodajZlecenieModel.cs" />
     <Compile Include="Models\KlientModel.cs" />
     <Compile Include="Models\KONTO.cs">
       <DependentUpon>Uzytkownicy.tt</DependentUpon>
@@ -229,6 +231,9 @@
     <Content Include="Views\Zlecenie\Index.cshtml" />
     <Content Include="Views\Zlecenie\Create.cshtml" />
     <Content Include="Views\Zlecenie\Edit.cshtml" />
+    <Content Include="Views\ZlecenieAdmin\Index.cshtml" />
+    <Content Include="Views\ZlecenieAdmin\Details.cshtml" />
+    <Content Include="Views\ZlecenieAdmin\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

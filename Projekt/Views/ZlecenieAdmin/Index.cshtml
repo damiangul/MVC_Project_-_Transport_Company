@@ -3,7 +3,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Twoje zlecenia</h2>
+<h2>Zlecenia użytkowników</h2>
 
 <br />
 <table class="table table-bordered table-striped">
@@ -11,6 +11,9 @@
         <th>Opis</th>
         <th>Waga</th>
         <th>Ilość</th>
+        <th>Imię klienta</th>
+        <th>Nazwisko klienta</th>
+        <th>Telefon</th>
         <th></th>
     </tr>
     @for (int i = 0; i < Model.Rows.Count; i++)
@@ -19,13 +22,13 @@
             <td>@Model.Rows[i][0]</td>
             <td>@Model.Rows[i][1]</td>
             <td>@Model.Rows[i][2]</td>
+            <td>@Model.Rows[i][3]</td>
+            <td>@Model.Rows[i][4]</td>
+            <td>@Model.Rows[i][5]</td>
             <td>
-                @*<a href="@Url.Action("Details", "Pracownik", new { @id=Model.Rows[i][3] })">Opinie</a> /*@
-                <a href="@Url.Action("Edit", "Zlecenie", new { @id=Model.Rows[i][3] })">Edycja</a> /
-                <a href="@Url.Action("Delete", "Zlecenie", new { @id=Model.Rows[i][3] })">Usuń</a>
+                <a href="@Url.Action("Details", "ZlecenieAdmin", new { @id=Model.Rows[i][6] })">Lokalizacja</a> /
+                <a href="@Url.Action("Edit", "ZlecenieAdmin", new { @id=Model.Rows[i][6] })">Przyjmij</a>
             </td>
         </tr>
     }
 </table>
-
-<a href="@Url.Action("Create", "Zlecenie")">Dodaj zlecenie</a>
