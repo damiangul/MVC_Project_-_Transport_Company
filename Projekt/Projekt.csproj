@@ -130,6 +130,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KlientController.cs" />
+    <Compile Include="Controllers\OpinieController.cs" />
     <Compile Include="Controllers\PracownikController.cs" />
     <Compile Include="Controllers\SamochodController.cs" />
     <Compile Include="Controllers\ZlecenieAdminController.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="Models\KONTO.cs">
       <DependentUpon>Uzytkownicy.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\OpiniaModel.cs" />
     <Compile Include="Models\PracownikModel.cs" />
     <Compile Include="Models\SamochodModel.cs" />
     <Compile Include="Models\Uzytkownicy.Context.cs">
@@ -234,6 +236,9 @@
     <Content Include="Views\ZlecenieAdmin\Index.cshtml" />
     <Content Include="Views\ZlecenieAdmin\Details.cshtml" />
     <Content Include="Views\ZlecenieAdmin\Edit.cshtml" />
+    <Content Include="Views\Opinie\Index.cshtml" />
+    <Content Include="Views\Opinie\Details.cshtml" />
+    <Content Include="Views\Opinie\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

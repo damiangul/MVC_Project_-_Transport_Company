@@ -153,32 +153,16 @@ namespace Projekt.Controllers
                 sqlCmd = new SqlCommand(query, sqlCon);
                 sqlCmd.Parameters.AddWithValue("@ZlecenieID", id);
                 sqlCmd.ExecuteNonQuery();
+
+                query = "INSERT INTO aktualny_stan_przewozu VALUES(@PrzesylkaID, @StanID, @data_zmiany_statusu, @uwagi);";
+                sqlCmd = new SqlCommand(query, sqlCon);
+                sqlCmd.Parameters.AddWithValue("@PrzesylkaID", id_przesylka);
+                sqlCmd.Parameters.AddWithValue("@StanID", 1);
+                sqlCmd.Parameters.AddWithValue("@data_zmiany_statusu", dodajZlecenieModel.DataPrzewozu);
+                sqlCmd.Parameters.AddWithValue("@uwagi", "Brak");
+                sqlCmd.ExecuteNonQuery();
             }
-
-
             return RedirectToAction("Index");
         }
-
-        // GET: ZlecenieAdmin/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: ZlecenieAdmin/Delete/5
-        //[HttpPost]
-        //public ActionResult Delete(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add delete logic here
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
     }
 }
