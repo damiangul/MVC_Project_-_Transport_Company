@@ -30,6 +30,11 @@
                             <li>@Html.ActionLink("Pracownicy", "Index", "Pracownik")</li>
                             <li>@Html.ActionLink("Klienci", "Index", "Klient")</li>
                         }
+
+                        if (User.IsInRole("user"))
+                        {
+                            <li>@Html.ActionLink("Zlecenia", "Index", "Zlecenie")</li>
+                        }
                     }
                 </ul>
             </div>

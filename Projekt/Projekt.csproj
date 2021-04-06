@@ -132,6 +132,7 @@
     <Compile Include="Controllers\KlientController.cs" />
     <Compile Include="Controllers\PracownikController.cs" />
     <Compile Include="Controllers\SamochodController.cs" />
+    <Compile Include="Controllers\ZlecenieController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -156,6 +157,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Uzytkownicy.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ZlecenieModel.cs" />
     <Compile Include="MyRoleProvider\SiteRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -224,6 +226,9 @@
     <Content Include="Views\Klient\Create.cshtml" />
     <Content Include="Views\Klient\Edit.cshtml" />
     <Content Include="Views\Home\RegisterAccount.cshtml" />
+    <Content Include="Views\Zlecenie\Index.cshtml" />
+    <Content Include="Views\Zlecenie\Create.cshtml" />
+    <Content Include="Views\Zlecenie\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

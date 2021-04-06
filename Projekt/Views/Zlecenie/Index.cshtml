@@ -1,0 +1,31 @@
+﻿@model System.Data.DataTable
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Twoje zlecenia</h2>
+
+<br />
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Opis</th>
+        <th>Waga</th>
+        <th>Ilość</th>
+        <th></th>
+    </tr>
+    @for (int i = 0; i < Model.Rows.Count; i++)
+    {
+        <tr>
+            <td>@Model.Rows[i][0]</td>
+            <td>@Model.Rows[i][1]</td>
+            <td>@Model.Rows[i][2]</td>
+            <td>
+                @*<a href="@Url.Action("Details", "Pracownik", new { @id=Model.Rows[i][11] })">Opinie</a> /*@
+                <a href="@Url.Action("Edit", "Zlecenie", new { @id=Model.Rows[i][3] })">Edycja</a> /
+                <a href="@Url.Action("Delete", "Zlecenie", new { @id=Model.Rows[i][3] })">Usuń</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<a href="@Url.Action("Create", "Zlecenie")">Dodaj zlecenie</a>
