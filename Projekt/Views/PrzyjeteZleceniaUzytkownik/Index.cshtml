@@ -1,0 +1,40 @@
+﻿@model System.Data.DataTable
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Twoje zlecenia</h2>
+
+<br />
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Pracownik</th>
+        <th>Klient</th>
+        <th>Samochód</th>
+        <th>Data przyjęcia zamówienia</th>
+        <th>Cena za km</th>
+        <th>Długość trasy</th>
+        <th>Opis</th>
+        <th>Waga</th>
+        <th>Ilość</th>
+        <th></th>
+    </tr>
+    @for (int i = 0; i < Model.Rows.Count; i++)
+    {
+        <tr>
+            <td>@Model.Rows[i][0]</td>
+            <td>@Model.Rows[i][1]</td>
+            <td>@Model.Rows[i][2]</td>
+            <td>@Model.Rows[i][3]</td>
+            <td>@Model.Rows[i][4]</td>
+            <td>@Model.Rows[i][5]</td>
+            <td>@Model.Rows[i][6]</td>
+            <td>@Model.Rows[i][7]</td>
+            <td>@Model.Rows[i][8]</td>
+            <td>
+                <a href="@Url.Action("Details", "PrzyjeteZleceniaAdmin", new { @id=Model.Rows[i][9] })">Status</a>
+            </td>
+        </tr>
+    }
+</table>
+

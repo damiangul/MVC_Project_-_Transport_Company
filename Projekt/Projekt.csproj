@@ -133,6 +133,7 @@
     <Compile Include="Controllers\OpinieController.cs" />
     <Compile Include="Controllers\PracownikController.cs" />
     <Compile Include="Controllers\PrzyjeteZleceniaAdminController.cs" />
+    <Compile Include="Controllers\PrzyjeteZleceniaUzytkownikController.cs" />
     <Compile Include="Controllers\SamochodController.cs" />
     <Compile Include="Controllers\ZlecenieAdminController.cs" />
     <Compile Include="Controllers\ZlecenieController.cs" />
@@ -243,6 +244,8 @@
     <Content Include="Views\PrzyjeteZleceniaAdmin\Index.cshtml" />
     <Content Include="Views\PrzyjeteZleceniaAdmin\Details.cshtml" />
     <Content Include="Views\PrzyjeteZleceniaAdmin\Edit.cshtml" />
+    <Content Include="Views\PrzyjeteZleceniaUzytkownik\Index.cshtml" />
+    <Content Include="Views\PrzyjeteZleceniaUzytkownik\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
