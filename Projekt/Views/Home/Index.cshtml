@@ -4,6 +4,6 @@
 
 @if (User.Identity.IsAuthenticated)
 {
-    <h1>Welcome @(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "guest!")</h1>
+    <h1>Welcome @ViewBag.UserName</h1>
     <a href="@Url.Action("SignOut", "Home")">Wyloguj się</a>
 }

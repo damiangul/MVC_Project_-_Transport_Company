@@ -1,6 +1,7 @@
 ﻿using Projekt.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -16,6 +17,32 @@ namespace Projekt.Controllers
         [Authorize]
         public ActionResult Index()
         {
+            string nameUser = User.Identity.Name;
+
+            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+            {
+                sqlCon.Open();
+                string userName = "";
+
+                if (User.IsInRole("user"))
+                {
+                    string query = "select k.imie FROM klient k INNER JOIN KONTO ko ON k.konto_id = ko.id WHERE ko.login_user = @UserName;";
+                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                    sqlCmd.Parameters.AddWithValue("@UserName", nameUser);
+                    userName = sqlCmd.ExecuteScalar().ToString();
+                }
+                else
+                {
+                    string query = "select p.imie FROM pracownik p INNER JOIN KONTO ko ON p.konto_id = ko.id WHERE ko.login_user = @UserName;";
+                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                    sqlCmd.Parameters.AddWithValue("@UserName", nameUser);
+                    userName = sqlCmd.ExecuteScalar().ToString();
+                }
+
+
+                ViewBag.UserName = userName;
+            }
+
             return View();
         }
 
