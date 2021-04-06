@@ -223,6 +223,7 @@
     <Content Include="Views\Klient\Index.cshtml" />
     <Content Include="Views\Klient\Create.cshtml" />
     <Content Include="Views\Klient\Edit.cshtml" />
+    <Content Include="Views\Home\RegisterAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
