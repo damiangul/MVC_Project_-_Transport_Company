@@ -17,7 +17,7 @@ namespace Projekt.Models
         [DisplayName("Podaj datę przyjęcia zamówienia")]
         public DateTime DataPrzewozu { get; set; }
         [DisplayName("Podaj cenę za kilometr")]
-        public int CennaZaKm { get; set; }
+        public Decimal CennaZaKm { get; set; }
         [DisplayName("Podaj długość trasy")]
         public int DlugoscTrasy { get; set; }
         [DisplayName("Podaj opis przesyłki")]
