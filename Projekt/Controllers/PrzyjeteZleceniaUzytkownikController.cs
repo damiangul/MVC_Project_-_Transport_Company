@@ -31,8 +31,9 @@ namespace Projekt.Controllers
                     "ON p.id = pr.pracownik_id INNER JOIN klient k " +
                     "ON k.id = pr.klient_id INNER JOIN samochod s " +
                     "ON s.id = pr.samochod_id INNER JOIN towar_do_przewiezienia t " +
-                    "ON t.przesyłka_id = pr.id " +
-                    "WHERE pr.klient_id=@UserID";
+                    "ON t.przesyłka_id = pr.id INNER JOIN KONTO ko " +
+                    "ON ko.id=k.konto_id " +
+                    "WHERE k.konto_id = @UserID";
                 SqlDataAdapter sqlDa = new SqlDataAdapter(query, sqlCon);
                 sqlDa.SelectCommand.Parameters.AddWithValue("@UserID", idCurrentUser);
                 sqlDa.Fill(dataTable);
