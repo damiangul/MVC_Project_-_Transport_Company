@@ -12,14 +12,28 @@ namespace Projekt.Controllers
     public class OpinieController : Controller
     {
         string connectionString = @"Data Source=.;Initial Catalog=Projekt;Integrated Security=True";
+        //pracownicy ktorzy dostarczyli mu towar
         public ActionResult Index()
         {
             DataTable dataTable = new DataTable();
+            string nameUser = User.Identity.Name;
+
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
             {
                 sqlCon.Open();
-                string query = "SELECT imie, nazwisko, id FROM pracownik";
+
+                string query = "SELECT id FROM KONTO WHERE login_user=@UserName";
+                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                sqlCmd.Parameters.AddWithValue("@UserName", nameUser);
+                int idCurrentUser = Convert.ToInt32(sqlCmd.ExecuteScalar());
+
+                query = "SELECT p.imie, p.nazwisko, p.id " +
+                    "FROM pracownik p INNER JOIN przesyłka pr " +
+                    "ON p.id = pr.pracownik_id INNER JOIN klient k " +
+                    "ON k.id = pr.klient_id " +
+                    "WHERE k.id = @UserID;";
                 SqlDataAdapter sqlDa = new SqlDataAdapter(query, sqlCon);
+                sqlDa.SelectCommand.Parameters.AddWithValue("@UserID", idCurrentUser);
                 sqlDa.Fill(dataTable);
             }
             return View(dataTable);
@@ -41,28 +55,6 @@ namespace Projekt.Controllers
             }
             return View(dataTable);
         }
-
-        //// GET: Opinie/Create
-        //public ActionResult Create()
-        //{
-        //    return View(new OpiniaModel());
-        //}
-
-        //// POST: Opinie/Create
-        //[HttpPost]
-        //public ActionResult Create(FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add insert logic here
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
 
         // GET: Opinie/Edit/5
         public ActionResult Edit(int id)
@@ -152,27 +144,5 @@ namespace Projekt.Controllers
             }
             return RedirectToAction("Index");
         }
-
-        //// GET: Opinie/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: Opinie/Delete/5
-        //[HttpPost]
-        //public ActionResult Delete(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add delete logic here
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
     }
 }
