@@ -8,12 +8,16 @@ namespace Projekt.Models
 {
     public class DodajZlecenieModel
     {
+        [DisplayName("Podaj pracownika")]
+        public List<PracownikLista> Pracownicy { get; set; }
         [DisplayName("Podaj ID pracownika")]
         public int PracownikID { get; set; }
         [DisplayName("Podaj ID  klienta")]
         public int KlientID { get; set; }
         [DisplayName("Podaj ID samochodu")]
         public int SamochodID { get; set; }
+        [DisplayName("Podaj pracownika")]
+        public List<SamochodLista> Samochody { get; set; }
         [DisplayName("Podaj datę przyjęcia zamówienia")]
         public DateTime DataPrzewozu { get; set; }
         [DisplayName("Podaj cenę za kilometr")]

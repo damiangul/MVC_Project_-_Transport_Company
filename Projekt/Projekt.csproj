@@ -148,7 +148,9 @@
       <DependentUpon>Uzytkownicy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OpiniaModel.cs" />
+    <Compile Include="Models\PracownikLista.cs" />
     <Compile Include="Models\PracownikModel.cs" />
+    <Compile Include="Models\SamochodLista.cs" />
     <Compile Include="Models\SamochodModel.cs" />
     <Compile Include="Models\StatusPaczki.cs" />
     <Compile Include="Models\Uzytkownicy.Context.cs">
