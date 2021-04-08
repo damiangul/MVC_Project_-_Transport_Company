@@ -1,0 +1,36 @@
+﻿@model System.Data.DataTable
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Adres dojazdu</h2>
+
+@if (Model != null)
+{
+    <h5>Ulica: @Model.Rows[0][0]</h5>
+    <h5>Numer: @Model.Rows[0][1]</h5>
+    <h5>Miasto: @Model.Rows[0][2]</h5>
+    <h5>Kod: @Model.Rows[0][3]</h5>
+}
+
+<h2>Status</h2>
+
+<br />
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Nazwa</th>
+        <th>Opis</th>
+        <th>Data zmiany statusu</th>
+        <th>Uwagi</th>
+    </tr>
+    @for (int i = 0; i < Model.Rows.Count; i++)
+    {
+        <tr>
+            <td>@Model.Rows[i][4]</td>
+            <td>@Model.Rows[i][5]</td>
+            <td>@Model.Rows[i][6]</td>
+            <td>@Model.Rows[i][7]</td>
+        </tr>
+    }
+</table>
+

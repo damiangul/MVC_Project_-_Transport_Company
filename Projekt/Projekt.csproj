@@ -132,6 +132,7 @@
     <Compile Include="Controllers\KlientController.cs" />
     <Compile Include="Controllers\OpinieController.cs" />
     <Compile Include="Controllers\PracownikController.cs" />
+    <Compile Include="Controllers\PracownikZmianaStatusuController.cs" />
     <Compile Include="Controllers\PrzyjeteZleceniaAdminController.cs" />
     <Compile Include="Controllers\PrzyjeteZleceniaUzytkownikController.cs" />
     <Compile Include="Controllers\SamochodController.cs" />
@@ -141,6 +142,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DodajZlecenieModel.cs" />
+    <Compile Include="Models\DodanieStatusuPracownik.cs" />
     <Compile Include="Models\KlientModel.cs" />
     <Compile Include="Models\KONTO.cs">
       <DependentUpon>Uzytkownicy.tt</DependentUpon>
@@ -148,6 +150,7 @@
     <Compile Include="Models\OpiniaModel.cs" />
     <Compile Include="Models\PracownikModel.cs" />
     <Compile Include="Models\SamochodModel.cs" />
+    <Compile Include="Models\StatusPaczki.cs" />
     <Compile Include="Models\Uzytkownicy.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -246,6 +249,9 @@
     <Content Include="Views\PrzyjeteZleceniaAdmin\Edit.cshtml" />
     <Content Include="Views\PrzyjeteZleceniaUzytkownik\Index.cshtml" />
     <Content Include="Views\PrzyjeteZleceniaUzytkownik\Details.cshtml" />
+    <Content Include="Views\PracownikZmianaStatusu\Index.cshtml" />
+    <Content Include="Views\PracownikZmianaStatusu\Details.cshtml" />
+    <Content Include="Views\PracownikZmianaStatusu\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

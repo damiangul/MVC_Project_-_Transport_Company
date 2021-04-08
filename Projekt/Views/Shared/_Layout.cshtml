@@ -39,6 +39,12 @@
                             <li>@Html.ActionLink("Przyjęte zlecenia", "Index", "PrzyjeteZleceniaUzytkownik")</li>
                             <li>@Html.ActionLink("Opinie", "Index", "Opinie")</li>
                         }
+
+                        if (User.IsInRole("worker"))
+                        {
+                            //DODAJ ZE MOZE AKTUALIZOWAC
+                            <li>@Html.ActionLink("Aktualne zlecenia", "Index", "PracownikZmianaStatusu")</li>
+                        }
                     }
                 </ul>
             </div>
