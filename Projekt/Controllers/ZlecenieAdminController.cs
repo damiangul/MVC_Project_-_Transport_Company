@@ -77,6 +77,51 @@ namespace Projekt.Controllers
 
             if (dtZlecenia.Rows.Count == 1)
             {
+                List<PracownikLista> pracownicy = new List<PracownikLista>();
+                List<SamochodLista> samochody = new List<SamochodLista>();
+
+                using (SqlConnection sqlCon = new SqlConnection(connectionString))
+                {
+                    string query = "select id, imie + ' ' + nazwisko as pracownik from pracownik;";
+                    using (var cmd = new SqlCommand(query, sqlCon))
+                    {
+                        sqlCon.Open();
+                        using (var rdr = cmd.ExecuteReader())
+                        {
+                            if (rdr.HasRows)
+                            {
+                                while (rdr.Read())
+                                {
+                                    var m = new PracownikLista();
+                                    m.id = rdr.GetInt32(rdr.GetOrdinal("id"));
+                                    m.Pracownik = rdr.GetString(rdr.GetOrdinal("pracownik"));
+                                    pracownicy.Add(m);
+                                }
+                            }
+                        }
+                    }
+
+                    query = "select id, model + ' ' + marka as samochod from samochod;";
+                    using (var cmd = new SqlCommand(query, sqlCon))
+                    {
+                        using (var rdr = cmd.ExecuteReader())
+                        {
+                            if (rdr.HasRows)
+                            {
+                                while (rdr.Read())
+                                {
+                                    var m = new SamochodLista();
+                                    m.id = rdr.GetInt32(rdr.GetOrdinal("id"));
+                                    m.Samochod = rdr.GetString(rdr.GetOrdinal("samochod"));
+                                    samochody.Add(m);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                dodajZlecenieModel.Pracownicy = pracownicy;
+                dodajZlecenieModel.Samochody = samochody;
                 dodajZlecenieModel.KlientID = Convert.ToInt32(dtZlecenia.Rows[0][0].ToString());
                 dodajZlecenieModel.ZlecenieOpis = dtZlecenia.Rows[0][1].ToString();
                 dodajZlecenieModel.ZlecenieWaga = Convert.ToInt32(dtZlecenia.Rows[0][2].ToString());
