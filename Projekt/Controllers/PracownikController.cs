@@ -62,55 +62,62 @@ namespace Projekt.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult Create(PracownikModel pracownikModel)
         {
-            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+            if(ModelState.IsValid)
             {
-                sqlCon.Open();
+                using (SqlConnection sqlCon = new SqlConnection(connectionString))
+                {
+                    sqlCon.Open();
 
-                string query = "INSERT INTO adres VALUES(@PracownikUlica, @PracownikNumer, @PracownikMiasto, @PracownikKod);";
-                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.Parameters.AddWithValue("@PracownikUlica", pracownikModel.PracownikUlica);
-                sqlCmd.Parameters.AddWithValue("@PracownikNumer", pracownikModel.PracownikNumer);
-                sqlCmd.Parameters.AddWithValue("@PracownikMiasto", pracownikModel.PracownikMiasto);
-                sqlCmd.Parameters.AddWithValue("@PracownikKod", pracownikModel.PracownikKod);
-                sqlCmd.ExecuteNonQuery();
+                    string query = "INSERT INTO adres VALUES(@PracownikUlica, @PracownikNumer, @PracownikMiasto, @PracownikKod);";
+                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                    sqlCmd.Parameters.AddWithValue("@PracownikUlica", pracownikModel.PracownikUlica);
+                    sqlCmd.Parameters.AddWithValue("@PracownikNumer", pracownikModel.PracownikNumer);
+                    sqlCmd.Parameters.AddWithValue("@PracownikMiasto", pracownikModel.PracownikMiasto);
+                    sqlCmd.Parameters.AddWithValue("@PracownikKod", pracownikModel.PracownikKod);
+                    sqlCmd.ExecuteNonQuery();
 
-                query = "SELECT id FROM adres" +
-                    " WHERE ulica=@PracownikUlica and numer=@PracownikNumer";
-                sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.Parameters.AddWithValue("@PracownikUlica", pracownikModel.PracownikUlica);
-                sqlCmd.Parameters.AddWithValue("@PracownikNumer", pracownikModel.PracownikNumer);
-                int id_adres = Convert.ToInt32(sqlCmd.ExecuteScalar());
+                    query = "SELECT id FROM adres" +
+                        " WHERE ulica=@PracownikUlica and numer=@PracownikNumer";
+                    sqlCmd = new SqlCommand(query, sqlCon);
+                    sqlCmd.Parameters.AddWithValue("@PracownikUlica", pracownikModel.PracownikUlica);
+                    sqlCmd.Parameters.AddWithValue("@PracownikNumer", pracownikModel.PracownikNumer);
+                    int id_adres = Convert.ToInt32(sqlCmd.ExecuteScalar());
 
-                query = "INSERT INTO KONTO VALUES(@PracownikLogin, @PracownikHaslo, 'worker');";
-                sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.Parameters.AddWithValue("@PracownikLogin", pracownikModel.PracownikLogin);
-                sqlCmd.Parameters.AddWithValue("@PracownikHaslo", pracownikModel.PracownikHaslo);
-                sqlCmd.ExecuteNonQuery();
+                    query = "INSERT INTO KONTO VALUES(@PracownikLogin, @PracownikHaslo, 'worker');";
+                    sqlCmd = new SqlCommand(query, sqlCon);
+                    sqlCmd.Parameters.AddWithValue("@PracownikLogin", pracownikModel.PracownikLogin);
+                    sqlCmd.Parameters.AddWithValue("@PracownikHaslo", pracownikModel.PracownikHaslo);
+                    sqlCmd.ExecuteNonQuery();
 
-                query = "SELECT id from KONTO" +
-                    " WHERE login_user=@PracownikLogin and password_user=@PracownikHaslo";
-                sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.Parameters.AddWithValue("@PracownikLogin", pracownikModel.PracownikLogin);
-                sqlCmd.Parameters.AddWithValue("@PracownikHaslo", pracownikModel.PracownikHaslo);
-                int id_konto = Convert.ToInt32(sqlCmd.ExecuteScalar());
+                    query = "SELECT id from KONTO" +
+                        " WHERE login_user=@PracownikLogin and password_user=@PracownikHaslo";
+                    sqlCmd = new SqlCommand(query, sqlCon);
+                    sqlCmd.Parameters.AddWithValue("@PracownikLogin", pracownikModel.PracownikLogin);
+                    sqlCmd.Parameters.AddWithValue("@PracownikHaslo", pracownikModel.PracownikHaslo);
+                    int id_konto = Convert.ToInt32(sqlCmd.ExecuteScalar());
 
 
-                query = "INSERT INTO pracownik VALUES(@id_adres, @id_konto, @PracownikImie, @PracownikNazwisko, @PracownikTelefon, @PracownikEmail," +
-                    " @PracownikDataZatrudnienia, @PracownikPesel, @PracownikPensja);";
-                sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.Parameters.AddWithValue("@id_adres", id_adres);
-                sqlCmd.Parameters.AddWithValue("@id_konto", id_konto);
-                sqlCmd.Parameters.AddWithValue("@PracownikImie", pracownikModel.PracownikImie);
-                sqlCmd.Parameters.AddWithValue("@PracownikNazwisko", pracownikModel.PracownikNazwisko);
-                sqlCmd.Parameters.AddWithValue("@PracownikTelefon", pracownikModel.PracownikTelefon);
-                sqlCmd.Parameters.AddWithValue("@PracownikEmail", pracownikModel.PracownikEmail);
-                sqlCmd.Parameters.AddWithValue("@PracownikDataZatrudnienia", pracownikModel.PracownikDataZatrudnienia);
-                sqlCmd.Parameters.AddWithValue("@PracownikPesel", pracownikModel.PracownikPesel);
-                sqlCmd.Parameters.AddWithValue("@PracownikPensja", pracownikModel.PracownikPensja);
-                sqlCmd.ExecuteNonQuery();
+                    query = "INSERT INTO pracownik VALUES(@id_adres, @id_konto, @PracownikImie, @PracownikNazwisko, @PracownikTelefon, @PracownikEmail," +
+                        " @PracownikDataZatrudnienia, @PracownikPesel, @PracownikPensja);";
+                    sqlCmd = new SqlCommand(query, sqlCon);
+                    sqlCmd.Parameters.AddWithValue("@id_adres", id_adres);
+                    sqlCmd.Parameters.AddWithValue("@id_konto", id_konto);
+                    sqlCmd.Parameters.AddWithValue("@PracownikImie", pracownikModel.PracownikImie);
+                    sqlCmd.Parameters.AddWithValue("@PracownikNazwisko", pracownikModel.PracownikNazwisko);
+                    sqlCmd.Parameters.AddWithValue("@PracownikTelefon", pracownikModel.PracownikTelefon);
+                    sqlCmd.Parameters.AddWithValue("@PracownikEmail", pracownikModel.PracownikEmail);
+                    sqlCmd.Parameters.AddWithValue("@PracownikDataZatrudnienia", pracownikModel.PracownikDataZatrudnienia);
+                    sqlCmd.Parameters.AddWithValue("@PracownikPesel", pracownikModel.PracownikPesel);
+                    sqlCmd.Parameters.AddWithValue("@PracownikPensja", pracownikModel.PracownikPensja);
+                    sqlCmd.ExecuteNonQuery();
+                }
+
+                return RedirectToAction("Index");
             }
-
-            return RedirectToAction("Index");
+            else
+            {
+                return View(pracownikModel);
+            }
         }
 
         // GET: Pracownik/Edit/5
@@ -166,55 +173,60 @@ namespace Projekt.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult Edit(int id, PracownikModel pracownikModel)
         {
-
-            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+            if(ModelState.IsValid)
             {
-                sqlCon.Open();
+                using (SqlConnection sqlCon = new SqlConnection(connectionString))
+                {
+                    sqlCon.Open();
 
-                string query = "UPDATE pracownik SET imie=@PracownikImie, nazwisko=@PracownikNazwisko, telefon=@PracownikTelefon, email=@PracownikEmail, " +
-                    "data_zatrudnienia=@PracownikDataZatrudnienia, pesel=@PracownikPesel, pensja=@PracownikPensja " +
-                    "WHERE id=@PracownikID";
-                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.Parameters.AddWithValue("@PracownikID", id);
-                sqlCmd.Parameters.AddWithValue("@PracownikImie", pracownikModel.PracownikImie);
-                sqlCmd.Parameters.AddWithValue("@PracownikNazwisko", pracownikModel.PracownikNazwisko);
-                sqlCmd.Parameters.AddWithValue("@PracownikTelefon", pracownikModel.PracownikTelefon);
-                sqlCmd.Parameters.AddWithValue("@PracownikEmail", pracownikModel.PracownikEmail);
-                sqlCmd.Parameters.AddWithValue("@PracownikDataZatrudnienia", pracownikModel.PracownikDataZatrudnienia);
-                sqlCmd.Parameters.AddWithValue("@PracownikPesel", pracownikModel.PracownikPesel);
-                sqlCmd.Parameters.AddWithValue("@PracownikPensja", pracownikModel.PracownikPensja);
-                sqlCmd.ExecuteNonQuery();
+                    string query = "UPDATE pracownik SET imie=@PracownikImie, nazwisko=@PracownikNazwisko, telefon=@PracownikTelefon, email=@PracownikEmail, " +
+                        "data_zatrudnienia=@PracownikDataZatrudnienia, pesel=@PracownikPesel, pensja=@PracownikPensja " +
+                        "WHERE id=@PracownikID";
+                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                    sqlCmd.Parameters.AddWithValue("@PracownikID", id);
+                    sqlCmd.Parameters.AddWithValue("@PracownikImie", pracownikModel.PracownikImie);
+                    sqlCmd.Parameters.AddWithValue("@PracownikNazwisko", pracownikModel.PracownikNazwisko);
+                    sqlCmd.Parameters.AddWithValue("@PracownikTelefon", pracownikModel.PracownikTelefon);
+                    sqlCmd.Parameters.AddWithValue("@PracownikEmail", pracownikModel.PracownikEmail);
+                    sqlCmd.Parameters.AddWithValue("@PracownikDataZatrudnienia", pracownikModel.PracownikDataZatrudnienia);
+                    sqlCmd.Parameters.AddWithValue("@PracownikPesel", pracownikModel.PracownikPesel);
+                    sqlCmd.Parameters.AddWithValue("@PracownikPensja", pracownikModel.PracownikPensja);
+                    sqlCmd.ExecuteNonQuery();
 
-                query = "SELECT adres_id FROM pracownik WHERE id=@PracownikID";
-                sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.Parameters.AddWithValue("@PracownikID", id);
-                int id_adres = Convert.ToInt32(sqlCmd.ExecuteScalar());
+                    query = "SELECT adres_id FROM pracownik WHERE id=@PracownikID";
+                    sqlCmd = new SqlCommand(query, sqlCon);
+                    sqlCmd.Parameters.AddWithValue("@PracownikID", id);
+                    int id_adres = Convert.ToInt32(sqlCmd.ExecuteScalar());
 
-                query = "UPDATE adres SET ulica=@PracownikUlica, numer=@PracownikNumer, miasto=@PracownikMiasto, kod=@PracownikKod " +
-                    "WHERE id=@id_adres";
-                sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.Parameters.AddWithValue("@id_adres", id_adres);
-                sqlCmd.Parameters.AddWithValue("@PracownikUlica", pracownikModel.PracownikUlica);
-                sqlCmd.Parameters.AddWithValue("@PracownikNumer", pracownikModel.PracownikNumer);
-                sqlCmd.Parameters.AddWithValue("@PracownikMiasto", pracownikModel.PracownikMiasto);
-                sqlCmd.Parameters.AddWithValue("@PracownikKod", pracownikModel.PracownikKod);
-                sqlCmd.ExecuteNonQuery();
+                    query = "UPDATE adres SET ulica=@PracownikUlica, numer=@PracownikNumer, miasto=@PracownikMiasto, kod=@PracownikKod " +
+                        "WHERE id=@id_adres";
+                    sqlCmd = new SqlCommand(query, sqlCon);
+                    sqlCmd.Parameters.AddWithValue("@id_adres", id_adres);
+                    sqlCmd.Parameters.AddWithValue("@PracownikUlica", pracownikModel.PracownikUlica);
+                    sqlCmd.Parameters.AddWithValue("@PracownikNumer", pracownikModel.PracownikNumer);
+                    sqlCmd.Parameters.AddWithValue("@PracownikMiasto", pracownikModel.PracownikMiasto);
+                    sqlCmd.Parameters.AddWithValue("@PracownikKod", pracownikModel.PracownikKod);
+                    sqlCmd.ExecuteNonQuery();
 
-                query = "SELECT konto_id FROM pracownik WHERE id=@PracownikID";
-                sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.Parameters.AddWithValue("@PracownikID", id);
-                int id_konto = Convert.ToInt32(sqlCmd.ExecuteScalar());
+                    query = "SELECT konto_id FROM pracownik WHERE id=@PracownikID";
+                    sqlCmd = new SqlCommand(query, sqlCon);
+                    sqlCmd.Parameters.AddWithValue("@PracownikID", id);
+                    int id_konto = Convert.ToInt32(sqlCmd.ExecuteScalar());
 
-                query = "UPDATE KONTO SET login_user=@PracownikLogin, password_user=@PracownikHaslo WHERE id=@id_konto";
-                sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.Parameters.AddWithValue("@id_konto", id_konto);
-                sqlCmd.Parameters.AddWithValue("@PracownikLogin", pracownikModel.PracownikLogin);
-                sqlCmd.Parameters.AddWithValue("@PracownikHaslo", pracownikModel.PracownikHaslo);
-                sqlCmd.ExecuteNonQuery();
+                    query = "UPDATE KONTO SET login_user=@PracownikLogin, password_user=@PracownikHaslo WHERE id=@id_konto";
+                    sqlCmd = new SqlCommand(query, sqlCon);
+                    sqlCmd.Parameters.AddWithValue("@id_konto", id_konto);
+                    sqlCmd.Parameters.AddWithValue("@PracownikLogin", pracownikModel.PracownikLogin);
+                    sqlCmd.Parameters.AddWithValue("@PracownikHaslo", pracownikModel.PracownikHaslo);
+                    sqlCmd.ExecuteNonQuery();
+                }
+
+                return RedirectToAction("Index");
             }
-
-
-            return RedirectToAction("Index");
+            else
+            {
+                return View(pracownikModel);
+            }
         }
 
         // GET: Pracownik/Delete/5
