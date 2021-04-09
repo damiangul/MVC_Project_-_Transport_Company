@@ -129,8 +129,8 @@ namespace Projekt.Controllers
 
                 klientModel.KlientUlica = dtKlient.Rows[0][4].ToString();
                 klientModel.KlientNumer = dtKlient.Rows[0][5].ToString();
-                klientModel.KlientKod = dtKlient.Rows[0][6].ToString();
-                klientModel.KlientMiasto = dtKlient.Rows[0][7].ToString();
+                klientModel.KlientMiasto = dtKlient.Rows[0][6].ToString();
+                klientModel.KlientKod = dtKlient.Rows[0][7].ToString();
 
                 klientModel.KlientLogin = dtKlient.Rows[0][8].ToString();
                 klientModel.KlientHaslo = dtKlient.Rows[0][9].ToString();
