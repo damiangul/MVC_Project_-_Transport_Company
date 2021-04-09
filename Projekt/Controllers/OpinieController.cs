@@ -109,53 +109,60 @@ namespace Projekt.Controllers
         [Authorize(Roles = "user")]
         public ActionResult Edit(int id, OpiniaModel opiniaModel)
         {
-            DataTable dtOpinia = new DataTable();
-            string nameUser = User.Identity.Name;
-
-            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+            if(ModelState.IsValid)
             {
-                sqlCon.Open();
+                DataTable dtOpinia = new DataTable();
+                string nameUser = User.Identity.Name;
 
-                string query = "SELECT id FROM KONTO WHERE login_user=@UserName";
-                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.Parameters.AddWithValue("@UserName", nameUser);
-                int idCurrentUser = Convert.ToInt32(sqlCmd.ExecuteScalar());
-
-                query = "select opis from opinia p INNER JOIN klient k " +
-                    "ON p.klient_id = k.id INNER JOIN KONTO ko " +
-                    "ON ko.id = k.konto_id WHERE ko.id = @KlientID and p.pracownik_id=@PracownikID;";
-                SqlDataAdapter sqlDa = new SqlDataAdapter(query, sqlCon);
-                sqlDa.SelectCommand.Parameters.AddWithValue("@PracownikID", id);
-                sqlDa.SelectCommand.Parameters.AddWithValue("@KlientID", idCurrentUser);
-
-                sqlDa.Fill(dtOpinia);
-
-                query = "SELECT id FROM klient WHERE konto_id=@UserName";
-                sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.Parameters.AddWithValue("@UserName", idCurrentUser);
-                int id_klient = Convert.ToInt32(sqlCmd.ExecuteScalar());
-
-                if (dtOpinia.Rows.Count == 1)
+                using (SqlConnection sqlCon = new SqlConnection(connectionString))
                 {
-                    query = "UPDATE opinia SET opis=@Opis " +
-                    "WHERE pracownik_id=@PracownikID AND klient_id=@KlientID";
+                    sqlCon.Open();
+
+                    string query = "SELECT id FROM KONTO WHERE login_user=@UserName";
+                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                    sqlCmd.Parameters.AddWithValue("@UserName", nameUser);
+                    int idCurrentUser = Convert.ToInt32(sqlCmd.ExecuteScalar());
+
+                    query = "select opis from opinia p INNER JOIN klient k " +
+                        "ON p.klient_id = k.id INNER JOIN KONTO ko " +
+                        "ON ko.id = k.konto_id WHERE ko.id = @KlientID and p.pracownik_id=@PracownikID;";
+                    SqlDataAdapter sqlDa = new SqlDataAdapter(query, sqlCon);
+                    sqlDa.SelectCommand.Parameters.AddWithValue("@PracownikID", id);
+                    sqlDa.SelectCommand.Parameters.AddWithValue("@KlientID", idCurrentUser);
+
+                    sqlDa.Fill(dtOpinia);
+
+                    query = "SELECT id FROM klient WHERE konto_id=@UserName";
                     sqlCmd = new SqlCommand(query, sqlCon);
-                    sqlCmd.Parameters.AddWithValue("@PracownikID", id);
-                    sqlCmd.Parameters.AddWithValue("@KlientID", id_klient);
-                    sqlCmd.Parameters.AddWithValue("@Opis", opiniaModel.Opis);
-                    sqlCmd.ExecuteNonQuery();
+                    sqlCmd.Parameters.AddWithValue("@UserName", idCurrentUser);
+                    int id_klient = Convert.ToInt32(sqlCmd.ExecuteScalar());
+
+                    if (dtOpinia.Rows.Count == 1)
+                    {
+                        query = "UPDATE opinia SET opis=@Opis " +
+                        "WHERE pracownik_id=@PracownikID AND klient_id=@KlientID";
+                        sqlCmd = new SqlCommand(query, sqlCon);
+                        sqlCmd.Parameters.AddWithValue("@PracownikID", id);
+                        sqlCmd.Parameters.AddWithValue("@KlientID", id_klient);
+                        sqlCmd.Parameters.AddWithValue("@Opis", opiniaModel.Opis);
+                        sqlCmd.ExecuteNonQuery();
+                    }
+                    else if (dtOpinia.Rows.Count == 0)
+                    {
+                        query = "INSERT INTO opinia VALUES(@KlientID, @PracownikID, @Opis)";
+                        sqlCmd = new SqlCommand(query, sqlCon);
+                        sqlCmd.Parameters.AddWithValue("@KlientID", id_klient);
+                        sqlCmd.Parameters.AddWithValue("@PracownikID", id);
+                        sqlCmd.Parameters.AddWithValue("@Opis", opiniaModel.Opis);
+                        sqlCmd.ExecuteNonQuery();
+                    }
                 }
-                else if (dtOpinia.Rows.Count == 0)
-                {
-                    query = "INSERT INTO opinia VALUES(@KlientID, @PracownikID, @Opis)";
-                    sqlCmd = new SqlCommand(query, sqlCon);
-                    sqlCmd.Parameters.AddWithValue("@KlientID", id_klient);
-                    sqlCmd.Parameters.AddWithValue("@PracownikID", id);
-                    sqlCmd.Parameters.AddWithValue("@Opis", opiniaModel.Opis);
-                    sqlCmd.ExecuteNonQuery();
-                }
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            else
+            {
+                return View(opiniaModel);
+            }
         }
     }
 }
