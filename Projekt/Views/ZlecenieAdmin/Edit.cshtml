@@ -64,7 +64,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.ZlecenieOpis, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.ZlecenieOpis, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.ZlecenieOpis, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
             @Html.ValidationMessageFor(model => model.ZlecenieOpis, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -72,7 +72,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.ZlecenieWaga, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.ZlecenieWaga, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.ZlecenieWaga, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
             @Html.ValidationMessageFor(model => model.ZlecenieWaga, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -80,7 +80,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.ZlecenieIlosc, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.ZlecenieIlosc, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.ZlecenieIlosc, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
             @Html.ValidationMessageFor(model => model.ZlecenieIlosc, "", new { @class = "text-danger" })
         </div>
     </div>
