@@ -13,6 +13,7 @@ namespace Projekt.Controllers
     {
         string connectionString = @"Data Source=.;Initial Catalog=Projekt;Integrated Security=True";
         // GET: PracownikZmianaStatusu
+        [Authorize(Roles = "worker")]
         public ActionResult Index()
         {
             DataTable dataTable = new DataTable();
@@ -44,6 +45,7 @@ namespace Projekt.Controllers
         }
 
         // GET: PracownikZmianaStatusu/Details/5
+        [Authorize(Roles = "worker")]
         public ActionResult Details(int id)
         {
             DataTable dataTable = new DataTable();
@@ -70,6 +72,7 @@ namespace Projekt.Controllers
         }
 
         // GET: PracownikZmianaStatusu/Edit/5
+        [Authorize(Roles = "worker")]
         public ActionResult Edit(int id)
         {
             List<StatusPaczki> statusPaczki = new List<StatusPaczki>();
@@ -105,6 +108,7 @@ namespace Projekt.Controllers
 
         // POST: PracownikZmianaStatusu/Edit/5
         [HttpPost]
+        [Authorize(Roles = "worker")]
         public ActionResult Edit(int id, DodanieStatusuPracownik dodanieStatusuPracownik)
         {
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
@@ -121,28 +125,6 @@ namespace Projekt.Controllers
             }
 
             return RedirectToAction("Index");
-        }
-
-        // GET: PracownikZmianaStatusu/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: PracownikZmianaStatusu/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }

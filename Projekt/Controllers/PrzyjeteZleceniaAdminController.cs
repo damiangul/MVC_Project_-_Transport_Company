@@ -13,6 +13,7 @@ namespace Projekt.Controllers
     {
         string connectionString = @"Data Source=.;Initial Catalog=Projekt;Integrated Security=True";
         // GET: PrzyjeteZleceniaAdmin
+        [Authorize(Roles = "admin")]
         public ActionResult Index()
         {
             DataTable dataTable = new DataTable();
@@ -35,6 +36,7 @@ namespace Projekt.Controllers
         }
 
         // GET: PrzyjeteZleceniaAdmin/Details/5
+        [Authorize(Roles = "admin")]
         public ActionResult Details(int id)
         {
             DataTable dataTable = new DataTable();
@@ -54,6 +56,7 @@ namespace Projekt.Controllers
         }
 
         // GET: PrzyjeteZleceniaAdmin/Edit/5
+        [Authorize(Roles = "admin")]
         public ActionResult Edit(int id)
         {
             DodajZlecenieModel dodajZlecenieModel = new DodajZlecenieModel();
@@ -143,6 +146,7 @@ namespace Projekt.Controllers
 
         // POST: PrzyjeteZleceniaAdmin/Edit/5
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public ActionResult Edit(int id, DodajZlecenieModel dodajZlecenieModel)
         {
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
@@ -174,6 +178,7 @@ namespace Projekt.Controllers
         }
 
         // GET: PrzyjeteZleceniaAdmin/Delete/5
+        [Authorize(Roles = "admin")]
         public ActionResult Delete(int id)
         {
             using (SqlConnection sqlCon = new SqlConnection(connectionString))

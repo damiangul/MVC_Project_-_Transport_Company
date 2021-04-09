@@ -14,6 +14,7 @@ namespace Projekt.Controllers
         
         string connectionString = @"Data Source=.;Initial Catalog=Projekt;Integrated Security=True";
 
+        [Authorize(Roles = "admin")]
         public ActionResult Index()
         {
             DataTable dataTable = new DataTable();
@@ -33,6 +34,7 @@ namespace Projekt.Controllers
         }
 
         // GET: ZlecenieAdmin/Details/5
+        [Authorize(Roles = "admin")]
         public ActionResult Details(int id)
         {
             DataTable dataTable = new DataTable();
@@ -52,29 +54,7 @@ namespace Projekt.Controllers
             return View(dataTable);
         }
 
-        //// GET: ZlecenieAdmin/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        //// POST: ZlecenieAdmin/Create
-        //[HttpPost]
-        //public ActionResult Create(FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add insert logic here
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        // GET: ZlecenieAdmin/Edit/5
+        [Authorize(Roles = "admin")]
         public ActionResult Edit(int id)
         {
             DodajZlecenieModel dodajZlecenieModel = new DodajZlecenieModel();
@@ -112,6 +92,7 @@ namespace Projekt.Controllers
 
         // POST: ZlecenieAdmin/Edit/5
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public ActionResult Edit(int id, DodajZlecenieModel dodajZlecenieModel)
         {
             using (SqlConnection sqlCon = new SqlConnection(connectionString))

@@ -12,6 +12,7 @@ namespace Projekt.Controllers
     {
         string connectionString = @"Data Source=.;Initial Catalog=Projekt;Integrated Security=True";
         // GET: PrzyjeteZleceniaUzytkownik
+        [Authorize(Roles = "user")]
         public ActionResult Index()
         {
             string nameUser = User.Identity.Name;
@@ -43,6 +44,7 @@ namespace Projekt.Controllers
         }
 
         // GET: PrzyjeteZleceniaUzytkownik/Details/5
+        [Authorize(Roles = "user")]
         public ActionResult Details(int id)
         {
             DataTable dataTable = new DataTable();

@@ -15,6 +15,7 @@ namespace Projekt.Controllers
         string connectionString = @"Data Source=.;Initial Catalog=Projekt;Integrated Security=True";
         int idCurrentUser;
         // GET: Zlecenie
+        [Authorize(Roles = "user")]
         public ActionResult Index()
         {
             string nameUser = User.Identity.Name;
@@ -38,14 +39,8 @@ namespace Projekt.Controllers
             return View(dataTable);
         }
 
-        // GET: Zlecenie/Details/5
-        //DODAJ ABY MOGL ZOBACZYC CO Z PACZKĄ
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: Zlecenie/Create
+        [Authorize(Roles = "user")]
         public ActionResult Create()
         {
             return View(new ZlecenieModel());
@@ -53,6 +48,7 @@ namespace Projekt.Controllers
 
         // POST: Zlecenie/Create
         [HttpPost]
+        [Authorize(Roles = "user")]
         public ActionResult Create(ZlecenieModel zlecenieModel)
         {
             string nameUser = User.Identity.Name;
@@ -79,6 +75,7 @@ namespace Projekt.Controllers
         }
 
         // GET: Zlecenie/Edit/5
+        [Authorize(Roles = "user")]
         public ActionResult Edit(int id)
         {
             ZlecenieModel zlecenieModel = new ZlecenieModel();
@@ -111,6 +108,7 @@ namespace Projekt.Controllers
 
         // POST: Zlecenie/Edit/5
         [HttpPost]
+        [Authorize(Roles = "user")]
         public ActionResult Edit(int id, ZlecenieModel zlecenieModel)
         {
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
@@ -132,6 +130,7 @@ namespace Projekt.Controllers
         }
 
         // GET: Zlecenie/Delete/5
+        [Authorize(Roles = "user")]
         public ActionResult Delete(int id)
         {
             using (SqlConnection sqlCon = new SqlConnection(connectionString))

@@ -12,7 +12,8 @@ namespace Projekt.Controllers
     public class OpinieController : Controller
     {
         string connectionString = @"Data Source=.;Initial Catalog=Projekt;Integrated Security=True";
-        //pracownicy ktorzy dostarczyli mu towar
+        
+        [Authorize(Roles = "user")]
         public ActionResult Index()
         {
             DataTable dataTable = new DataTable();
@@ -40,6 +41,7 @@ namespace Projekt.Controllers
         }
 
         // GET: Opinie/Details/5
+        [Authorize(Roles = "user")]
         public ActionResult Details(int id)
         {
             DataTable dataTable = new DataTable();
@@ -57,6 +59,7 @@ namespace Projekt.Controllers
         }
 
         // GET: Opinie/Edit/5
+        [Authorize(Roles = "user")]
         public ActionResult Edit(int id)
         {
             OpiniaModel opiniaModel = new OpiniaModel();
@@ -103,6 +106,7 @@ namespace Projekt.Controllers
 
         // POST: Opinie/Edit/5
         [HttpPost]
+        [Authorize(Roles = "user")]
         public ActionResult Edit(int id, OpiniaModel opiniaModel)
         {
             DataTable dtOpinia = new DataTable();

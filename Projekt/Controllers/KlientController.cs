@@ -13,6 +13,7 @@ namespace Projekt.Controllers
     {
         string connectionString = @"Data Source=.;Initial Catalog=Projekt;Integrated Security=True";
         // GET: Klient
+        [Authorize(Roles = "admin")]
         public ActionResult Index()
         {
             DataTable dataTable = new DataTable();
@@ -29,20 +30,17 @@ namespace Projekt.Controllers
             return View(dataTable);
         }
 
-        // TODO DAC TUTAJ MOZE JEGO ZREALIZOWANE ZAMOWIENIA?
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: Klient/Create
+        [Authorize(Roles = "admin")]
         public ActionResult Create()
         {
             return View(new KlientModel());
         }
 
         // POST: Klient/Create
+        
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public ActionResult Create(KlientModel klientModel)
         {
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
@@ -93,6 +91,7 @@ namespace Projekt.Controllers
         }
 
         // GET: Klient/Edit/5
+        [Authorize(Roles = "admin")]
         public ActionResult Edit(int id)
         {
             KlientModel klientModel = new KlientModel();
@@ -139,6 +138,7 @@ namespace Projekt.Controllers
 
         // POST: Klient/Edit/5
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public ActionResult Edit(int id, KlientModel klientModel)
         {
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
@@ -188,6 +188,7 @@ namespace Projekt.Controllers
         }
 
         // GET: Klient/Delete/5
+        [Authorize(Roles = "admin")]
         public ActionResult Delete(int id)
         {
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
