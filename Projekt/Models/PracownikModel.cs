@@ -56,9 +56,11 @@ namespace Projekt.Models
         public string PracownikKod { get; set; }
         [DisplayName("Podaj login")]
         [Required(AllowEmptyStrings = false)]
+        [StringLength(50, ErrorMessage = "Za długi login")]
         public string PracownikLogin { get; set; }
         [DisplayName("Podaj hasło")]
         [Required(AllowEmptyStrings = false)]
+        [StringLength(50, ErrorMessage = "Za długie hasło")]
         public string PracownikHaslo { get; set; }
     }
 }
