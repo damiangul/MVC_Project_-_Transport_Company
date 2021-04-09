@@ -12,13 +12,16 @@ namespace Projekt.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class KONTO
     {
         public int id { get; set; }
         [DisplayName("Login")]
+        [Required(AllowEmptyStrings = false)]
         public string login_user { get; set; }
         [DisplayName("Has³o")]
+        [Required(AllowEmptyStrings = false)]
         public string password_user { get; set; }
         public string rola { get; set; }
     }

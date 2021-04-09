@@ -54,25 +54,32 @@ namespace Projekt.Controllers
         [HttpPost]
         public ActionResult Login(KONTO model, string returnUrl)
         {
-            ProjektEntities db = new ProjektEntities();
-            var dataItem = db.KONTOes.Where(x => x.login_user == model.login_user && x.password_user == model.password_user).First();
-
-            if(dataItem != null)
+            if (ModelState.IsValid)
             {
-                FormsAuthentication.SetAuthCookie(dataItem.login_user, false);
-                if(Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                ProjektEntities db = new ProjektEntities();
+                var dataItem = db.KONTOes.Where(x => x.login_user == model.login_user && x.password_user == model.password_user).First();
+
+                if (dataItem != null)
                 {
-                    return Redirect(returnUrl);
-                } 
+                    FormsAuthentication.SetAuthCookie(dataItem.login_user, false);
+                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
                 else
                 {
-                    return RedirectToAction("Index");
+                    ModelState.AddModelError("", "Invalid user/pass");
+                    return View();
                 }
             }
             else
             {
-                ModelState.AddModelError("", "Invalid user/pass");
-                return View();
+                return View(model);
             }
         }
 
