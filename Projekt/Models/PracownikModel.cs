@@ -52,7 +52,7 @@ namespace Projekt.Models
         public string PracownikMiasto { get; set; }
         [DisplayName("Podaj kod")]
         [Required(AllowEmptyStrings = false)]
-        [StringLength(11, ErrorMessage = "Za długi kod")]
+        [StringLength(6, ErrorMessage = "Za długi kod")]
         public string PracownikKod { get; set; }
         [DisplayName("Podaj login")]
         [Required(AllowEmptyStrings = false)]
