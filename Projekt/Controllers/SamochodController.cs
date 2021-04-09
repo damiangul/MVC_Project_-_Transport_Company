@@ -41,23 +41,31 @@ namespace Projekt.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult Create(SamochodModel samochodModel)
         {
-            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+            if(ModelState.IsValid)
             {
-                sqlCon.Open();
-                string query = "INSERT INTO samochod VALUES(@SamochodMarka, @SamochodModelPojazdu, @SamochodDataProdukcji, " +
-                    "@SamochodPojemnosc, @SamochodPrzebieg, @SamochodPrzeglad)";
-                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.Parameters.AddWithValue("@SamochodMarka", samochodModel.SamochodMarka);
-                sqlCmd.Parameters.AddWithValue("@SamochodModelPojazdu", samochodModel.SamochodModelPojazdu);
-                sqlCmd.Parameters.AddWithValue("@SamochodDataProdukcji", samochodModel.SamochodDataProdukcji);
-                sqlCmd.Parameters.AddWithValue("@SamochodPojemnosc", samochodModel.SamochodPojemnosc);
-                sqlCmd.Parameters.AddWithValue("@SamochodPrzebieg", samochodModel.SamochodPrzebieg);
-                sqlCmd.Parameters.AddWithValue("@SamochodPrzeglad", samochodModel.SamochodPrzeglad);
+                using (SqlConnection sqlCon = new SqlConnection(connectionString))
+                {
+                    sqlCon.Open();
+                    string query = "INSERT INTO samochod VALUES(@SamochodMarka, @SamochodModelPojazdu, @SamochodDataProdukcji, " +
+                        "@SamochodPojemnosc, @SamochodPrzebieg, @SamochodPrzeglad)";
+                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                    sqlCmd.Parameters.AddWithValue("@SamochodMarka", samochodModel.SamochodMarka);
+                    sqlCmd.Parameters.AddWithValue("@SamochodModelPojazdu", samochodModel.SamochodModelPojazdu);
+                    sqlCmd.Parameters.AddWithValue("@SamochodDataProdukcji", samochodModel.SamochodDataProdukcji);
+                    sqlCmd.Parameters.AddWithValue("@SamochodPojemnosc", samochodModel.SamochodPojemnosc);
+                    sqlCmd.Parameters.AddWithValue("@SamochodPrzebieg", samochodModel.SamochodPrzebieg);
+                    sqlCmd.Parameters.AddWithValue("@SamochodPrzeglad", samochodModel.SamochodPrzeglad);
 
-                sqlCmd.ExecuteNonQuery();
+                    sqlCmd.ExecuteNonQuery();
+                }
+
+                return RedirectToAction("Index");
+            } 
+            else
+            {
+                return View(samochodModel);
             }
 
-            return RedirectToAction("Index");
         }
 
         // GET: Samochod/Edit/5
@@ -100,24 +108,31 @@ namespace Projekt.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult Edit(SamochodModel samochodModel, int id)
         {
-            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+            if(ModelState.IsValid)
             {
-                sqlCon.Open();
-                string query = "UPDATE samochod SET marka=@SamochodMarka, model=@SamochodModelPojazdu, data_produkcji=@SamochodDataProdukcji, " +
-                    "pojemnosc=@SamochodPojemnosc, przebieg=@SamochodPrzebieg, przeglad=@SamochodPrzeglad WHERE id=@SamochodID";
-                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.Parameters.AddWithValue("@SamochodID", id);
-                sqlCmd.Parameters.AddWithValue("@SamochodMarka", samochodModel.SamochodMarka);
-                sqlCmd.Parameters.AddWithValue("@SamochodModelPojazdu", samochodModel.SamochodModelPojazdu);
-                sqlCmd.Parameters.AddWithValue("@SamochodDataProdukcji", samochodModel.SamochodDataProdukcji);
-                sqlCmd.Parameters.AddWithValue("@SamochodPojemnosc", samochodModel.SamochodPojemnosc);
-                sqlCmd.Parameters.AddWithValue("@SamochodPrzebieg", samochodModel.SamochodPrzebieg);
-                sqlCmd.Parameters.AddWithValue("@SamochodPrzeglad", samochodModel.SamochodPrzeglad);
+                using (SqlConnection sqlCon = new SqlConnection(connectionString))
+                {
+                    sqlCon.Open();
+                    string query = "UPDATE samochod SET marka=@SamochodMarka, model=@SamochodModelPojazdu, data_produkcji=@SamochodDataProdukcji, " +
+                        "pojemnosc=@SamochodPojemnosc, przebieg=@SamochodPrzebieg, przeglad=@SamochodPrzeglad WHERE id=@SamochodID";
+                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                    sqlCmd.Parameters.AddWithValue("@SamochodID", id);
+                    sqlCmd.Parameters.AddWithValue("@SamochodMarka", samochodModel.SamochodMarka);
+                    sqlCmd.Parameters.AddWithValue("@SamochodModelPojazdu", samochodModel.SamochodModelPojazdu);
+                    sqlCmd.Parameters.AddWithValue("@SamochodDataProdukcji", samochodModel.SamochodDataProdukcji);
+                    sqlCmd.Parameters.AddWithValue("@SamochodPojemnosc", samochodModel.SamochodPojemnosc);
+                    sqlCmd.Parameters.AddWithValue("@SamochodPrzebieg", samochodModel.SamochodPrzebieg);
+                    sqlCmd.Parameters.AddWithValue("@SamochodPrzeglad", samochodModel.SamochodPrzeglad);
 
-                sqlCmd.ExecuteNonQuery();
+                    sqlCmd.ExecuteNonQuery();
+                }
+
+                return RedirectToAction("Index");
             }
-
-            return RedirectToAction("Index");
+            else
+            {
+                return View(samochodModel);
+            }
         }
 
         // GET: Samochod/Delete/5
