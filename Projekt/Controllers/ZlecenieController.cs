@@ -51,27 +51,34 @@ namespace Projekt.Controllers
         [Authorize(Roles = "user")]
         public ActionResult Create(ZlecenieModel zlecenieModel)
         {
-            string nameUser = User.Identity.Name;
-
-            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+            if(ModelState.IsValid)
             {
-                sqlCon.Open();
+                string nameUser = User.Identity.Name;
 
-                string query = "SELECT id FROM KONTO WHERE login_user=@UserName";
-                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.Parameters.AddWithValue("@UserName", nameUser);
-                idCurrentUser = Convert.ToInt32(sqlCmd.ExecuteScalar());
+                using (SqlConnection sqlCon = new SqlConnection(connectionString))
+                {
+                    sqlCon.Open();
 
-                query = "INSERT INTO zlecenie VALUES(@UserID, @ZlecenieOpis, @ZlecenieWaga, @ZlecenieIlosc);";
-                sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.Parameters.AddWithValue("@UserID", idCurrentUser);
-                sqlCmd.Parameters.AddWithValue("@ZlecenieOpis", zlecenieModel.ZlecenieOpis);
-                sqlCmd.Parameters.AddWithValue("@ZlecenieWaga", zlecenieModel.ZlecenieWaga);
-                sqlCmd.Parameters.AddWithValue("@ZlecenieIlosc", zlecenieModel.ZlecenieIlosc);
-                sqlCmd.ExecuteNonQuery();
+                    string query = "SELECT id FROM KONTO WHERE login_user=@UserName";
+                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                    sqlCmd.Parameters.AddWithValue("@UserName", nameUser);
+                    idCurrentUser = Convert.ToInt32(sqlCmd.ExecuteScalar());
+
+                    query = "INSERT INTO zlecenie VALUES(@UserID, @ZlecenieOpis, @ZlecenieWaga, @ZlecenieIlosc);";
+                    sqlCmd = new SqlCommand(query, sqlCon);
+                    sqlCmd.Parameters.AddWithValue("@UserID", idCurrentUser);
+                    sqlCmd.Parameters.AddWithValue("@ZlecenieOpis", zlecenieModel.ZlecenieOpis);
+                    sqlCmd.Parameters.AddWithValue("@ZlecenieWaga", zlecenieModel.ZlecenieWaga);
+                    sqlCmd.Parameters.AddWithValue("@ZlecenieIlosc", zlecenieModel.ZlecenieIlosc);
+                    sqlCmd.ExecuteNonQuery();
+                }
+
+                return RedirectToAction("Index");
             }
-
-            return RedirectToAction("Index");
+            else
+            {
+                return View();
+            }
         }
 
         // GET: Zlecenie/Edit/5
@@ -111,22 +118,28 @@ namespace Projekt.Controllers
         [Authorize(Roles = "user")]
         public ActionResult Edit(int id, ZlecenieModel zlecenieModel)
         {
-            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+            if (ModelState.IsValid)
             {
-                sqlCon.Open();
+                using (SqlConnection sqlCon = new SqlConnection(connectionString))
+                {
+                    sqlCon.Open();
 
-                string query = "UPDATE zlecenie SET opis=@ZlecenieOpis, waga=@ZlecenieWaga, ilosc=@ZlecenieIlosc " +
-                    "WHERE id=@ZlecenieID";
-                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.Parameters.AddWithValue("@ZlecenieID", id);
-                sqlCmd.Parameters.AddWithValue("@ZlecenieOpis", zlecenieModel.ZlecenieOpis);
-                sqlCmd.Parameters.AddWithValue("@ZlecenieWaga", zlecenieModel.ZlecenieWaga);
-                sqlCmd.Parameters.AddWithValue("@ZlecenieIlosc", zlecenieModel.ZlecenieIlosc);
-                sqlCmd.ExecuteNonQuery();
+                    string query = "UPDATE zlecenie SET opis=@ZlecenieOpis, waga=@ZlecenieWaga, ilosc=@ZlecenieIlosc " +
+                        "WHERE id=@ZlecenieID";
+                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                    sqlCmd.Parameters.AddWithValue("@ZlecenieID", id);
+                    sqlCmd.Parameters.AddWithValue("@ZlecenieOpis", zlecenieModel.ZlecenieOpis);
+                    sqlCmd.Parameters.AddWithValue("@ZlecenieWaga", zlecenieModel.ZlecenieWaga);
+                    sqlCmd.Parameters.AddWithValue("@ZlecenieIlosc", zlecenieModel.ZlecenieIlosc);
+                    sqlCmd.ExecuteNonQuery();
+                }
+
+                return RedirectToAction("Index");
             }
-
-
-            return RedirectToAction("Index");
+            else
+            {
+                return View(zlecenieModel);
+            }
         }
 
         // GET: Zlecenie/Delete/5
