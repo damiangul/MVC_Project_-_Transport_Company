@@ -16,7 +16,7 @@ namespace Projekt.Models
         public int KlientID { get; set; }
         [DisplayName("Podaj ID samochodu")]
         public int SamochodID { get; set; }
-        [DisplayName("Podaj pracownika")]
+        [DisplayName("Podaj samochod")]
         public List<SamochodLista> Samochody { get; set; }
         [DisplayName("Podaj datę przyjęcia zamówienia")]
         public DateTime DataPrzewozu { get; set; }
