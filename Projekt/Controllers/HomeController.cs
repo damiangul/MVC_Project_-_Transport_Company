@@ -56,8 +56,20 @@ namespace Projekt.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 ProjektEntities db = new ProjektEntities();
-                var dataItem = db.KONTOes.Where(x => x.login_user == model.login_user && x.password_user == model.password_user).First();
+                var dataItem = new KONTO();
+
+                try
+                {
+                    dataItem = db.KONTOes.Where(x => x.login_user == model.login_user && x.password_user == model.password_user).First();
+
+                } catch
+                {                                   
+                    ModelState.AddModelError("", "Niepoprawne login lub hasło!");
+                    return View();                  
+                }
+                 
 
                 if (dataItem != null)
                 {
@@ -70,12 +82,11 @@ namespace Projekt.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                }
-                else
+                } else
                 {
-                    ModelState.AddModelError("", "Invalid user/pass");
                     return View();
                 }
+
             }
             else
             {
