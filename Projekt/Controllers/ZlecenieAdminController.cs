@@ -173,8 +173,6 @@ namespace Projekt.Controllers
                 sqlCmd.Parameters.AddWithValue("@ZlecenieIlosc", dodajZlecenieModel.ZlecenieIlosc);
                 sqlCmd.ExecuteNonQuery();
 
-                //TODO USUNIE SIE TO TERAZ Z ZLECENIE I KLIENT BEDZIE MIAL ZAKLADKE OGARNIETE ZLECENIA
-
                 query = "DELETE FROM zlecenie WHERE id=@ZlecenieID";
                 sqlCmd = new SqlCommand(query, sqlCon);
                 sqlCmd.Parameters.AddWithValue("@ZlecenieID", id);
